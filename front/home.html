@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#6D5AE6" />
+    <link rel="icon" href="/logo.png" />
+    <title>CREAR — Inicio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body class="bg-primary-subtle">
+    <div class="flex flex-col h-svh max-w-md mx-auto bg-white sm:shadow-card-md">
+
+      <!-- Barra superior -->
+      <header class="bg-white border-b border-primary-light px-4 h-14 flex items-center justify-between shrink-0 sticky top-0 z-10">
+        <div class="flex items-center gap-2.5">
+          <div class="w-7 h-7 rounded-lg flex items-center justify-center shrink-0" style="background: linear-gradient(135deg, #6D5AE6, #8B7AEE)">
+            <span class="text-white text-[10px] font-black">C</span>
+          </div>
+          <span class="text-sm font-bold text-gray-800">Inicio</span>
+        </div>
+        <button id="btn-logout" class="text-xs font-semibold text-gray-400 hover:text-primary transition-colors">
+          Cerrar sesión
+        </button>
+      </header>
+
+      <!-- Contenido -->
+      <main class="flex-1 overflow-y-auto bg-primary-subtle px-4 py-5 space-y-5 animate-fade-up">
+
+        <!-- Datos de ejemplo por ahora: esto se conecta a Supabase en el próximo paso -->
+        <div class="rounded-2xl p-5 shadow-card" style="background: linear-gradient(135deg, #1E1147, #6D5AE6)">
+          <p class="text-white/60 text-xs font-medium">Hola,</p>
+          <h2 class="text-white font-bold text-xl font-display mt-0.5">Nombre Apellido</h2>
+          <p class="text-white/50 text-xs mt-2">Inscripta en 2 grupos</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div class="bg-white rounded-2xl border border-primary-light p-4 shadow-card">
+            <p class="text-2xl font-black text-primary">2</p>
+            <p class="text-xs text-gray-400 mt-0.5">Grupos activos</p>
+          </div>
+          <div class="bg-white rounded-2xl border border-primary-light p-4 shadow-card">
+            <p class="text-2xl font-black text-amber-500">1</p>
+            <p class="text-xs text-gray-400 mt-0.5">Cuotas pendientes</p>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-primary-light p-5 shadow-card">
+          <p class="text-sm font-bold text-gray-800 mb-3">Última cuota</p>
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm font-semibold text-gray-800 capitalize">Agosto 2026</p>
+              <p class="text-xs text-gray-400 mt-0.5">Vence: 31/08/2026</p>
+            </div>
+            <div class="text-right">
+              <p class="text-lg font-black text-gray-800">$15.000</p>
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 ring-1 ring-amber-200 mt-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                Pendiente
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-primary-light p-5 shadow-card">
+          <p class="text-sm font-bold text-gray-800 mb-3">Mis grupos</p>
+          <ul class="space-y-2">
+            <li class="p-2.5 rounded-xl bg-primary-subtle">
+              <p class="text-sm font-semibold text-gray-800">Ballet Intermedio</p>
+              <p class="text-xs text-gray-400">Intermedio · Lunes y Miércoles 18:00–19:30</p>
+            </li>
+            <li class="p-2.5 rounded-xl bg-primary-subtle">
+              <p class="text-sm font-semibold text-gray-800">Jazz Avanzado</p>
+              <p class="text-xs text-gray-400">Avanzado · Viernes 19:00–20:30</p>
+            </li>
+          </ul>
+        </div>
+      </main>
+
+      <!-- Navegación inferior -->
+      <nav class="bg-white border-t border-primary-light pb-safe shrink-0">
+        <div class="flex">
+          <a href="home.html" class="flex-1 flex flex-col items-center gap-1 py-2.5 text-primary">
+            <div class="px-3 py-1 rounded-xl bg-primary-light">
+              <span class="text-[10px] font-semibold leading-none">Inicio</span>
+            </div>
+          </a>
+          <a href="pagos.html" class="flex-1 flex flex-col items-center gap-1 py-2.5 text-gray-400 hover:text-primary transition-colors">
+            <span class="text-[10px] font-semibold leading-none">Pagos</span>
+          </a>
+          <a href="asistencia.html" class="flex-1 flex flex-col items-center gap-1 py-2.5 text-gray-400 hover:text-primary transition-colors">
+            <span class="text-[10px] font-semibold leading-none">Asistencia</span>
+          </a>
+          <a href="grupos.html" class="flex-1 flex flex-col items-center gap-1 py-2.5 text-gray-400 hover:text-primary transition-colors">
+            <span class="text-[10px] font-semibold leading-none">Grupos</span>
+          </a>
+          <a href="evaluaciones.html" class="flex-1 flex flex-col items-center gap-1 py-2.5 text-gray-400 hover:text-primary transition-colors">
+            <span class="text-[10px] font-semibold leading-none">Notas</span>
+          </a>
+        </div>
+      </nav>
+    </div>
+
+    <script type="module" src="/src/home.js"></script>
+  </body>
+</html>

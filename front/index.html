@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#6D5AE6" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="CREAR" />
+    <link rel="icon" href="/logo.png" />
+    <link rel="apple-touch-icon" href="/logo.png" />
+    <title>CREAR — Portal de Alumnos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body class="bg-primary-subtle">
+    <main class="min-h-svh flex flex-col items-center justify-center px-6 py-12"
+      style="background: linear-gradient(160deg, #1E1147 0%, #2D1B69 60%, #F8F9FC 100%)">
+
+      <div class="flex flex-col items-center mb-10">
+        <div class="w-16 h-16 rounded-2xl bg-white/15 border border-white/25 flex items-center justify-center mb-4 backdrop-blur-sm">
+          <span class="text-white font-black text-2xl font-display">C</span>
+        </div>
+        <h1 class="text-white font-bold text-2xl tracking-wide font-display">CREAR</h1>
+        <p class="text-white/50 text-xs tracking-widest uppercase mt-1">Portal de Alumnos</p>
+      </div>
+
+      <div class="w-full max-w-sm bg-white rounded-3xl shadow-card-md p-7">
+        <h2 class="text-[15px] font-bold text-gray-800 mb-1">Ingresá a tu cuenta</h2>
+        <p class="text-xs text-gray-400 mb-6">Usá el DNI y la fecha de nacimiento del alumno</p>
+
+        <form id="form-login" class="space-y-4" novalidate>
+          <div>
+            <label for="dni" class="block text-xs font-semibold text-gray-800 mb-1.5">DNI del alumno</label>
+            <input
+              id="dni"
+              name="dni"
+              type="text"
+              inputmode="numeric"
+              placeholder="Ej: 40123456"
+              required
+              class="w-full px-4 py-3 rounded-xl border border-primary-light bg-primary-subtle text-sm text-gray-800 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition"
+            />
+          </div>
+          <div>
+            <label for="fecha_nacimiento" class="block text-xs font-semibold text-gray-800 mb-1.5">Fecha de nacimiento</label>
+            <input
+              id="fecha_nacimiento"
+              name="fecha_nacimiento"
+              type="date"
+              required
+              class="w-full px-4 py-3 rounded-xl border border-primary-light bg-primary-subtle text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition"
+            />
+          </div>
+
+          <p id="login-error" class="hidden text-xs text-red-600 bg-red-50 border border-red-200 rounded-xl px-4 py-2.5"></p>
+
+          <button
+            id="btn-submit"
+            type="submit"
+            class="w-full py-3 rounded-xl bg-primary text-white font-semibold text-sm hover:bg-primary-dark active:scale-[.98] transition-all disabled:opacity-60 disabled:cursor-not-allowed shadow-card-md"
+          >
+            Ingresar
+          </button>
+        </form>
+
+        <!-- MODO DEMO temporal: borrar este botón cuando el login real ya esté probado -->
+        <button
+          id="btn-demo"
+          type="button"
+          class="w-full mt-3 py-2.5 rounded-xl border border-primary-light text-primary text-xs font-semibold hover:bg-primary-light transition-colors"
+        >
+          Entrar en modo demo (sin Supabase)
+        </button>
+      </div>
+
+      <p class="text-white/25 text-[10px] mt-8 text-center">Academia de Danzas CREAR</p>
+    </main>
+
+    <script type="module" src="/src/login.js"></script>
+  </body>
+</html>

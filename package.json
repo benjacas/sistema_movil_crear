@@ -1,0 +1,10 @@
+{
+  "name": "services-crear",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "description": "Capa de datos compartida (services/ + lib/) entre el portal de alumnos y el sistema de administración.",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0"
+  }
+}

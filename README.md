@@ -16,6 +16,7 @@ sistema_movil_crear/
 │   ├── evaluaciones.js
 │   ├── grupos.js
 │   ├── inscripciones.js
+│   ├── notificaciones.js    # nuevo — tablas todavía no creadas, ver nota de schema en el archivo
 │   ├── padres.js
 │   ├── pagos.js
 │   ├── profesores.js
@@ -24,11 +25,31 @@ sistema_movil_crear/
 └── front/                  # la PWA en sí (lo único que corre en el navegador del alumno)
     ├── index.html            # módulo: login
     ├── home.html              # módulo: inicio
+    ├── pagos.html             # módulo: estado de cuotas
+    ├── asistencia.html        # módulo: % de asistencia e historial
+    ├── grupos.html            # módulo: mis grupos y horarios
+    ├── evaluaciones.html      # módulo: notas y devoluciones
+    ├── perfil.html            # módulo: datos personales + tutores vinculados
+    ├── notificaciones.html    # módulo: bandeja de avisos institucionales y automáticos
     ├── src/
     │   ├── styles.css          # entrada de Tailwind
-    │   ├── session.js          # guarda/lee/borra el alumno logueado (localStorage)
+    │   ├── sesion.js            # guarda/lee/borra el alumno logueado (localStorage)
+    │   ├── guard.js             # protege páginas: sin sesión, redirige a index.html
     │   ├── login.js             # lógica del módulo de login
-    │   └── home.js               # lógica del módulo de inicio
+    │   ├── home.js              # lógica del módulo de inicio
+    │   ├── pagos.js
+    │   ├── asistencia.js
+    │   ├── grupos.js
+    │   ├── evaluaciones.js
+    │   ├── perfil.js
+    │   ├── notificaciones.js
+    │   ├── components/
+    │   │   └── shell.js         # header + navegación inferior, compartidos por todas las páginas
+    │   ├── utils/
+    │   │   └── format.js        # moneda, fechas, badges de estado, % de asistencia
+    │   └── mock/
+    │       ├── mockData.js      # fixtures con la MISMA forma que devuelve cada service real
+    │       └── dataSource.js    # conFallback(): intenta Supabase real, si falla usa el mock
     ├── public/logo.png
     ├── package.json
     ├── vite.config.js
@@ -72,11 +93,16 @@ Abre la URL que indique la terminal (por defecto `http://localhost:5173`).
 
 ## Estado actual
 
-- ✅ **Login** (`index.html`): formulario de DNI + fecha de nacimiento, conectado a `services/auth.js` → `loginByDni()`. Si coincide, guarda la sesión en `localStorage` (`session.js`) y no navega todavía a ningún lado (falta conectar el redirect a Inicio).
-- 🚧 **Inicio** (`home.html`): maqueta visual con datos de ejemplo fijos en el HTML (no llama a Supabase todavía). Falta: traer los datos reales del alumno logueado usando `services/pagos.js` y `services/inscripciones.js`, y bloquear el acceso si no hay sesión.
-- ⬜ Pagos, Asistencia, Grupos, Evaluaciones: no empezados. Los links de la navegación inferior ya apuntan a `pagos.html`, `asistencia.html`, `grupos.html`, `evaluaciones.html`, que todavía no existen (dan 404 a propósito, hasta que se construyan).
+- ✅ **Login** (`index.html`): formulario de DNI + fecha de nacimiento, conectado a `services/auth.js` → `loginByDni()`. Guarda la sesión en `localStorage` (`sesion.js`) y redirige a `home.html`.
+- ✅ **Inicio, Pagos, Asistencia, Grupos, Evaluaciones, Perfil, Notificaciones**: 7 páginas protegidas construidas y conectadas a sus services reales. El ícono de perfil y la campanita de notificaciones (con badge de no leídas) viven en el header, no en la barra inferior, para no saturarla en mobile. Todas comparten el mismo layout (`components/shell.js`) y quedan bloqueadas si no hay sesión (`guard.js`).
+- 🆕 **`services/notificaciones.js` es un archivo nuevo, no una tabla que ya existía**. Contiene la propuesta de schema (`notificaciones` + `notificaciones_leidas`) como comentario al principio del archivo — hay que validarla con el sistema de administración y crear las tablas en Supabase antes de que deje de andar en modo demo. También incluye `generarAvisosVencimientoProximo()` y `generarAvisosInasistenciaReiterada()`, pensadas para dispararse desde el sistema de administración (botón manual o cron), no desde el portal.
+- 🚧 **Perfil — edición de datos**: el alumno puede editar teléfono, email y domicilio (`updateAlumno`). Nombre, DNI y fecha de nacimiento quedan de solo lectura porque DNI + fecha de nacimiento son la clave del login actual — si se cambia el modelo de login más adelante, revisar si conviene habilitarlos.
+- 🚧 **Sin acceso a Supabase todavía**: cada página usa `mock/dataSource.js` → `conFallback()` para intentar la consulta real y, si falla (falta `.env`, tabla inexistente, etc.), mostrar datos de ejemplo (`mock/mockData.js`) con la misma forma exacta que devolvería Supabase. **Esto es temporal**: una vez que el `.env` tenga las credenciales reales y el schema esté migrado, hay que sacar el `conFallback(...)` de cada página y dejar solo la llamada al service — no hace falta tocar nada más.
+- ⬜ **Pago electrónico (Mercado Pago)**: el botón "Pagar" en `pagos.html` está deshabilitado a propósito; la integración con la pasarela de pago es un módulo aparte, todavía no empezado.
+- ⬜ **Toma de asistencia por profesoras / Liquidación de sueldos / Venta de entradas**: son los módulos del rol Profesor y del módulo Eventos — fuera del alcance de esta primera etapa (autenticación + estructura base + rol Alumno/Tutor).
 
 ## Decisiones pendientes / a revisar
 
-- **Login por DNI + fecha de nacimiento** (`services/auth.js`) es una verificación de identidad simple, **no es autenticación real** (no hay contraseña, no usa Supabase Auth). El sistema de administración sí usa `supabase.auth.signInWithPassword` para el staff. Si la base tiene Row Level Security (RLS) activado, puede que las consultas anónimas del portal no traigan datos — hay que probarlo contra la base real y, si hace falta, migrar a un login más robusto (magic link / OTP por email, por ejemplo).
-- **Compartir `services/` de verdad** (monorepo con workspaces) está pendiente de charlarlo con Marti, dueña del repo `SistemaWeb_CREAR`.
+- **Login por DNI + fecha de nacimiento** (`services/auth.js`) es una verificación de identidad simple, **no es autenticación real** (no hay contraseña, no usa Supabase Auth). El sistema de administración sí usa `supabase.auth.signInWithPassword` para el staff. Si la base tiene Row Level Security (RLS) activado, puede que las consultas anónimas del portal no traigan datos — hay que probarlo contra la base real y, si hace falta, migrar a un login más robusto (magic link / OTP por email, por ejemplo). **Esto también condiciona el uso de RLS + views**: sin `auth.uid()` real, no se puede restringir a nivel de base de datos que cada alumno vea solo lo suyo.
+- **Views para el portal**: se evaluó usar `VIEW`/`MATERIALIZED VIEW` en Supabase para simplificar los joins que hoy se arman a mano en JS (ver comentarios "BUG-FIX" en `services/alumnos.js`, `services/dashboard.js`, etc.) y para no acoplar el portal a tablas grandes del sistema de gestión académica. Pendiente de definir junto con el otro proyecto una vez que haya acceso a la base real.
+- **Compartir `services/` de verdad** (monorepo con workspaces)

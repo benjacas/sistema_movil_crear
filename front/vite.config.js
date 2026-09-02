@@ -17,6 +17,12 @@ export default defineConfig({
       input: {
         main: 'index.html',
         home: 'home.html',
+        pagos: 'pagos.html',
+        asistencia: 'asistencia.html',
+        grupos: 'grupos.html',
+        evaluaciones: 'evaluaciones.html',
+        perfil: 'perfil.html',
+        notificaciones: 'notificaciones.html',
       },
     },
   },

@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#6D5AE6" />
+    <link rel="icon" href="/logo.png" />
+    <title>CREAR — Mi perfil</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body class="bg-primary-subtle">
+    <div class="flex flex-col h-svh max-w-md mx-auto bg-white sm:shadow-card-md">
+
+      <header id="app-header"></header>
+
+      <main class="flex-1 overflow-y-auto bg-primary-subtle px-4 py-5 space-y-5 animate-fade-up">
+
+        <!-- Datos personales -->
+        <div class="bg-white rounded-2xl border border-primary-light p-5 shadow-card">
+          <div class="flex items-center justify-between mb-4">
+            <p class="text-sm font-bold text-gray-800">Datos personales</p>
+            <button id="btn-editar" type="button" class="text-xs font-semibold text-primary hover:text-primary-dark">
+              Editar
+            </button>
+          </div>
+
+          <form id="form-perfil" class="space-y-4">
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block text-[11px] font-semibold text-gray-400 mb-1">Nombre</label>
+                <p id="ver-nombre" class="text-sm font-semibold text-gray-800">—</p>
+              </div>
+              <div>
+                <label class="block text-[11px] font-semibold text-gray-400 mb-1">Apellido</label>
+                <p id="ver-apellido" class="text-sm font-semibold text-gray-800">—</p>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block text-[11px] font-semibold text-gray-400 mb-1">DNI</label>
+                <p id="ver-dni" class="text-sm font-semibold text-gray-800">—</p>
+              </div>
+              <div>
+                <label class="block text-[11px] font-semibold text-gray-400 mb-1">Fecha de nacimiento</label>
+                <p id="ver-fecha-nacimiento" class="text-sm font-semibold text-gray-800">—</p>
+              </div>
+            </div>
+
+            <p class="text-[10px] text-gray-300 -mt-2">
+              Nombre, DNI y fecha de nacimiento los administra la academia y no se pueden editar desde acá.
+            </p>
+
+            <div>
+              <label for="telefono" class="block text-[11px] font-semibold text-gray-400 mb-1">Teléfono</label>
+              <input
+                id="telefono" name="telefono" type="tel" disabled
+                class="w-full px-3.5 py-2.5 rounded-xl border border-primary-light bg-primary-subtle text-sm text-gray-800 disabled:text-gray-500 disabled:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition"
+              />
+            </div>
+
+            <div>
+              <label for="email" class="block text-[11px] font-semibold text-gray-400 mb-1">Email</label>
+              <input
+                id="email" name="email" type="email" disabled
+                class="w-full px-3.5 py-2.5 rounded-xl border border-primary-light bg-primary-subtle text-sm text-gray-800 disabled:text-gray-500 disabled:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition"
+              />
+            </div>
+
+            <div>
+              <label for="domicilio" class="block text-[11px] font-semibold text-gray-400 mb-1">Domicilio</label>
+              <input
+                id="domicilio" name="domicilio" type="text" disabled
+                class="w-full px-3.5 py-2.5 rounded-xl border border-primary-light bg-primary-subtle text-sm text-gray-800 disabled:text-gray-500 disabled:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition"
+              />
+            </div>
+
+            <p id="perfil-mensaje" class="hidden text-xs rounded-xl px-4 py-2.5"></p>
+
+            <div id="acciones-edicion" class="hidden gap-3">
+              <button
+                id="btn-cancelar" type="button"
+                class="flex-1 py-2.5 rounded-xl border border-primary-light text-gray-500 text-xs font-semibold hover:bg-gray-50 transition-colors"
+              >
+                Cancelar
+              </button>
+              <button
+                id="btn-guardar" type="submit"
+                class="flex-1 py-2.5 rounded-xl bg-primary text-white text-xs font-semibold hover:bg-primary-dark transition-colors disabled:opacity-60"
+              >
+                Guardar cambios
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Tutores vinculados -->
+        <div class="bg-white rounded-2xl border border-primary-light p-5 shadow-card">
+          <p class="text-sm font-bold text-gray-800 mb-3">Tutores / responsables</p>
+          <ul id="lista-tutores" class="space-y-2">
+            <li class="text-xs text-gray-400">Cargando...</li>
+          </ul>
+        </div>
+      </main>
+
+      <nav id="app-nav"></nav>
+    </div>
+
+    <script type="module" src="/src/perfil.js"></script>
+  </body>
+</html>

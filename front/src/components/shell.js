@@ -47,6 +47,11 @@ export function renderShell({ active, title }) {
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
           <span id="badge-notificaciones" class="hidden absolute -top-0.5 -right-0.5 w-4 h-4 rounded-full bg-red-500 text-white text-[9px] font-bold items-center justify-center"></span>
         </a>
+        <a href="eventos.html" title="Eventos" class="w-7 h-7 rounded-full flex items-center justify-center transition-colors ${
+          active === 'eventos' ? 'bg-primary-light text-primary' : 'text-gray-400 hover:text-primary hover:bg-primary-light'
+        }">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v2z"/><path d="M9 5v14"/></svg>
+        </a>
         <a href="perfil.html" title="Mi perfil" class="w-7 h-7 rounded-full flex items-center justify-center transition-colors ${
           active === 'perfil' ? 'bg-primary-light text-primary' : 'text-gray-400 hover:text-primary hover:bg-primary-light'
         }">

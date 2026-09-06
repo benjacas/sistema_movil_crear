@@ -16,11 +16,21 @@
 
       <header id="app-header"></header>
 
-      <main class="flex-1 overflow-y-auto bg-primary-subtle px-4 py-5 space-y-3 animate-fade-up">
-        <p class="text-xs text-gray-400 px-1">Tus grupos activos, con día y horario.</p>
-        <ul id="lista-grupos-detalle" class="space-y-3">
-          <li class="text-xs text-gray-400 px-1">Cargando...</li>
-        </ul>
+      <main class="flex-1 overflow-y-auto bg-primary-subtle px-4 py-5 space-y-5 animate-fade-up">
+
+        <div>
+          <p class="text-xs text-gray-400 px-1 mb-3">Todas tus clases de la semana, en un solo lugar.</p>
+          <div id="calendario-semanal" class="space-y-3">
+            <p class="text-xs text-gray-400 px-1">Cargando...</p>
+          </div>
+        </div>
+
+        <div>
+          <p class="text-xs font-bold text-gray-700 px-1 mb-3">Mis grupos</p>
+          <ul id="lista-grupos-detalle" class="space-y-3">
+            <li class="text-xs text-gray-400 px-1">Cargando...</li>
+          </ul>
+        </div>
       </main>
 
       <nav id="app-nav"></nav>

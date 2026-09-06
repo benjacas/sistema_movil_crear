@@ -75,3 +75,21 @@ export function calcularPorcentajeAsistencia(registros) {
   const presentes = registros.filter((r) => r.presente).length
   return Math.round((presentes / registros.length) * 100)
 }
+
+/** '19:00:00' (columna `time` de Postgres) -> '19:00' */
+export function formatHora(horaSQL) {
+  if (!horaSQL) return '—'
+  return horaSQL.slice(0, 5)
+}
+
+// Config visual por estado de entrada — se usa en "Mis entradas".
+const ESTADOS_ENTRADA = {
+  pagado: { label: 'Pagada', classes: 'bg-emerald-50 text-emerald-700 ring-emerald-200' },
+  pendiente_pago: { label: 'Pendiente de pago', classes: 'bg-amber-50 text-amber-700 ring-amber-200' },
+  cancelado: { label: 'Cancelada', classes: 'bg-gray-100 text-gray-500 ring-gray-200' },
+  expirado: { label: 'Expirada', classes: 'bg-gray-100 text-gray-500 ring-gray-200' },
+}
+
+export function badgeEstadoEntrada(estado) {
+  return ESTADOS_ENTRADA[estado] ?? { label: estado ?? '—', classes: 'bg-gray-50 text-gray-600 ring-gray-200' }
+}

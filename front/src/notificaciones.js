@@ -1,6 +1,7 @@
 import { getNotificacionesByAlumno, marcarComoLeida, marcarTodasComoLeidas } from '../../services/notificaciones.js'
 import { requireSesion } from './guard.js'
 import { renderShell } from './components/shell.js'
+import { abrirModal } from './components/modal.js'
 import { conFallback } from './mock/dataSource.js'
 import { notificacionesDemo } from './mock/mockData.js'
 import { formatFechaHora, infoTipoNotificacion } from './utils/format.js'
@@ -16,15 +17,11 @@ const CTA_POR_TIPO = {
 const sesion = requireSesion()
 let notificacionesActuales = []
 
-const modal = document.getElementById('modal-notificacion')
-
 if (sesion) {
   renderShell({ active: 'notificaciones', title: 'Notificaciones' })
   cargarNotificaciones(sesion)
 
   document.getElementById('btn-marcar-todas').addEventListener('click', () => marcarTodas(sesion))
-  document.getElementById('btn-cerrar-modal').addEventListener('click', cerrarModal)
-  document.getElementById('modal-backdrop').addEventListener('click', cerrarModal)
 }
 
 async function cargarNotificaciones(sesion) {
@@ -79,30 +76,28 @@ function abrirDetalle(sesion, notificacion_id) {
   if (!notificacion) return
 
   const info = infoTipoNotificacion(notificacion.tipo)
-  document.getElementById('modal-icono').className = `w-9 h-9 rounded-full flex items-center justify-center font-bold shrink-0 ${info.classes}`
-  document.getElementById('modal-icono').textContent = info.letra
-  document.getElementById('modal-tipo').textContent = info.label
-  document.getElementById('modal-titulo').textContent = notificacion.titulo
-  document.getElementById('modal-fecha').textContent = formatFechaHora(notificacion.fecha_creacion)
-  document.getElementById('modal-mensaje').textContent = notificacion.mensaje
-
-  const cta = document.getElementById('modal-cta')
   const ctaInfo = CTA_POR_TIPO[notificacion.tipo]
-  if (ctaInfo) {
-    cta.href = ctaInfo.href
-    cta.textContent = ctaInfo.label
-    cta.classList.remove('hidden')
-  } else {
-    cta.classList.add('hidden')
-  }
 
-  modal.classList.remove('hidden')
+  abrirModal(`
+    <div class="flex items-center gap-3 mb-3 pr-6">
+      <div class="w-9 h-9 rounded-full flex items-center justify-center font-bold shrink-0 ${info.classes}">
+        ${info.letra}
+      </div>
+      <div>
+        <p class="text-[10px] font-semibold uppercase tracking-wide text-gray-400">${info.label}</p>
+        <p class="text-base font-bold text-gray-800">${notificacion.titulo}</p>
+      </div>
+    </div>
+    <p class="text-xs text-gray-400 mb-3">${formatFechaHora(notificacion.fecha_creacion)}</p>
+    <p class="text-sm text-gray-700 leading-relaxed">${notificacion.mensaje}</p>
+    ${ctaInfo ? `
+      <a href="${ctaInfo.href}" class="block mt-5 w-full py-3 rounded-xl bg-primary text-white text-sm font-semibold text-center hover:bg-primary-dark transition-colors">
+        ${ctaInfo.label}
+      </a>
+    ` : ''}
+  `)
 
   if (!notificacion.leida) marcarUna(sesion, notificacion_id)
-}
-
-function cerrarModal() {
-  modal.classList.add('hidden')
 }
 
 async function marcarUna(sesion, notificacion_id) {

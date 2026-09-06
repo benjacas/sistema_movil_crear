@@ -15,6 +15,28 @@ export async function getGrupos() {
   return data.map((g) => ({ ...g, profesores: profById[g.profesor_id] ?? null }))
 }
 
+//----------------------------SISTEMA DE AUTOGESTION MOVIL-----------------------------------------
+
+/**
+ * Detalle completo de un grupo/disciplina para el portal de alumnos: datos
+ * del grupo + profesor a cargo + cupo actual (inscriptos activos vs
+ * capacidad máxima). Se resuelve con queries separadas, mismo patrón que
+ * el resto del archivo, para no depender de FKs formales en Supabase.
+ */
+export async function getGrupoById(id) {
+  const { data: grupo, error } = await supabase.from('grupos').select('*').eq('id', id).single()
+  if (error) throw error
+
+  const [{ data: profesor }, { count: inscriptosActivos }] = await Promise.all([
+    grupo.profesor_id
+      ? supabase.from('profesores').select('*').eq('id', grupo.profesor_id).maybeSingle()
+      : Promise.resolve({ data: null }),
+    supabase.from('inscripciones').select('*', { count: 'exact', head: true }).eq('grupo_id', id).eq('estado', 'activa'),
+  ])
+
+  return { ...grupo, profesor: profesor ?? null, inscriptos_activos: inscriptosActivos ?? 0 }
+}
+
 export async function createGrupo(grupo) {
   const { data, error } = await supabase.from('grupos').insert([grupo]).select().single()
   if (error) throw error

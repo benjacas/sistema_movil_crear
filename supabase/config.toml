@@ -1,0 +1,12 @@
+# Config mínima para las Edge Functions del módulo de Eventos.
+# Este repo todavía no está "linkeado" a un proyecto real de Supabase
+# (supabase link --project-ref ...) — eso es uno de los pasos manuales
+# pendientes (ver CLAUDE.md > Decisiones pendientes).
+
+[functions.crear-preferencia-pago]
+# La llama el front autenticado con la anon key — sí verificamos JWT (default).
+verify_jwt = true
+
+[functions.webhook-mercadopago]
+# Mercado Pago no manda un JWT de Supabase en sus notificaciones.
+verify_jwt = false

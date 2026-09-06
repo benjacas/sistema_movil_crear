@@ -44,7 +44,8 @@ sistema_movil_crear/
     │   ├── perfil.js
     │   ├── notificaciones.js
     │   ├── components/
-    │   │   └── shell.js         # header + navegación inferior, compartidos por todas las páginas
+    │   │   ├── shell.js         # header + navegación inferior, compartidos por todas las páginas
+    │   │   └── modal.js         # bottom sheet genérico (detalle de notificación, detalle de grupo/disciplina)
     │   ├── utils/
     │   │   └── format.js        # moneda, fechas, badges de estado, % de asistencia
     │   └── mock/
@@ -95,6 +96,7 @@ Abre la URL que indique la terminal (por defecto `http://localhost:5173`).
 
 - ✅ **Login** (`index.html`): formulario de DNI + fecha de nacimiento, conectado a `services/auth.js` → `loginByDni()`. Guarda la sesión en `localStorage` (`sesion.js`) y redirige a `home.html`.
 - ✅ **Inicio, Pagos, Asistencia, Grupos, Evaluaciones, Perfil, Notificaciones**: 7 páginas protegidas construidas y conectadas a sus services reales. El ícono de perfil y la campanita de notificaciones (con badge de no leídas) viven en el header, no en la barra inferior, para no saturarla en mobile. Todas comparten el mismo layout (`components/shell.js`) y quedan bloqueadas si no hay sesión (`guard.js`).
+- ✅ **Detalle de disciplina en Grupos**: cada tarjeta de grupo abre un modal (`components/modal.js`, genérico y reutilizable) con profesora a cargo, horario, cupo disponible y cuota mensual. Usa `getGrupoById()`, nuevo en `services/grupos.js`.
 - 🆕 **`services/notificaciones.js` es un archivo nuevo, no una tabla que ya existía**. Contiene la propuesta de schema (`notificaciones` + `notificaciones_leidas`) como comentario al principio del archivo — hay que validarla con el sistema de administración y crear las tablas en Supabase antes de que deje de andar en modo demo. También incluye `generarAvisosVencimientoProximo()` y `generarAvisosInasistenciaReiterada()`, pensadas para dispararse desde el sistema de administración (botón manual o cron), no desde el portal.
 - 🚧 **Perfil — edición de datos**: el alumno puede editar teléfono, email y domicilio (`updateAlumno`). Nombre, DNI y fecha de nacimiento quedan de solo lectura porque DNI + fecha de nacimiento son la clave del login actual — si se cambia el modelo de login más adelante, revisar si conviene habilitarlos.
 - 🚧 **Sin acceso a Supabase todavía**: cada página usa `mock/dataSource.js` → `conFallback()` para intentar la consulta real y, si falla (falta `.env`, tabla inexistente, etc.), mostrar datos de ejemplo (`mock/mockData.js`) con la misma forma exacta que devolvería Supabase. **Esto es temporal**: una vez que el `.env` tenga las credenciales reales y el schema esté migrado, hay que sacar el `conFallback(...)` de cada página y dejar solo la llamada al service — no hace falta tocar nada más.

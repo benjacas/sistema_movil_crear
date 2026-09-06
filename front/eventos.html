@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#6D5AE6" />
     <link rel="icon" href="/logo.png" />
-    <title>CREAR — Notificaciones</title>
+    <title>CREAR — Eventos</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet" />
@@ -16,21 +16,21 @@
 
       <header id="app-header"></header>
 
-      <main class="flex-1 overflow-y-auto bg-primary-subtle px-4 py-5 space-y-3 animate-fade-up">
+      <main class="flex-1 overflow-y-auto bg-primary-subtle px-4 py-5 space-y-5 animate-fade-up">
+
         <div class="flex items-center justify-between px-1">
-          <p class="text-xs text-gray-400">Avisos institucionales y alertas automáticas.</p>
-          <button id="btn-marcar-todas" class="hidden text-xs font-semibold text-primary hover:text-primary-dark whitespace-nowrap">
-            Marcar todas
-          </button>
+          <p class="text-xs text-gray-400">Reservá tu entrada y elegí tu asiento.</p>
+          <a href="mis-entradas.html" class="text-xs font-semibold text-primary shrink-0">Mis entradas →</a>
         </div>
-        <ul id="lista-notificaciones" class="space-y-2">
-          <li class="text-xs text-gray-400 px-1">Cargando...</li>
-        </ul>
+
+        <div id="lista-eventos" class="space-y-3">
+          <p class="text-xs text-gray-400 px-1">Cargando...</p>
+        </div>
       </main>
 
       <nav id="app-nav"></nav>
     </div>
 
-    <script type="module" src="/src/notificaciones.js"></script>
+    <script type="module" src="/src/eventos.js"></script>
   </body>
 </html>

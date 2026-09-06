@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#6D5AE6" />
+    <link rel="icon" href="/logo.png" />
+    <title>CREAR — Evento</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body class="bg-primary-subtle">
+    <div class="flex flex-col h-svh max-w-md mx-auto bg-white sm:shadow-card-md">
+
+      <header id="app-header"></header>
+
+      <main class="flex-1 overflow-y-auto bg-primary-subtle px-4 py-5 space-y-5 animate-fade-up">
+
+        <a href="eventos.html" class="text-xs text-primary font-semibold">← Volver a eventos</a>
+
+        <div id="evento-info" class="bg-white rounded-2xl border border-primary-light shadow-card p-5">
+          <p class="text-xs text-gray-400">Cargando...</p>
+        </div>
+
+        <div id="evento-contenido" class="hidden space-y-3">
+          <div class="bg-white rounded-2xl border border-primary-light shadow-card p-4">
+            <p class="text-sm font-bold text-gray-800 mb-1">Elegí tus asientos</p>
+            <p class="text-center text-[10px] text-gray-300 tracking-widest uppercase mb-3">Escenario</p>
+
+            <div class="overflow-x-auto pb-1">
+              <div id="mapa-asientos" class="inline-flex flex-col gap-1.5 mx-auto"></div>
+            </div>
+
+            <div class="flex items-center gap-4 mt-4 text-[10px] text-gray-400">
+              <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-[4px] border border-primary-light bg-white inline-block"></span> Libre</span>
+              <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-[4px] bg-gray-200 inline-block"></span> Ocupado</span>
+              <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-[4px] bg-primary inline-block"></span> Elegido</span>
+            </div>
+          </div>
+
+          <div id="mensaje-mapa" class="hidden text-xs rounded-xl px-4 py-2.5"></div>
+        </div>
+      </main>
+
+      <div id="resumen-seleccion" class="hidden border-t border-primary-light bg-white px-4 py-3 flex items-center justify-between gap-3 shrink-0">
+        <div>
+          <p id="resumen-cantidad" class="text-sm font-bold text-gray-800">—</p>
+          <p id="resumen-total" class="text-xs text-gray-400">—</p>
+        </div>
+        <button id="btn-reservar" class="px-5 py-2.5 rounded-xl bg-primary text-white text-sm font-semibold hover:bg-primary-dark transition-colors disabled:opacity-50 shrink-0">
+          Reservar y pagar
+        </button>
+      </div>
+
+      <nav id="app-nav"></nav>
+    </div>
+
+    <script type="module" src="/src/evento.js"></script>
+  </body>
+</html>
